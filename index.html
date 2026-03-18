@@ -1673,6 +1673,10 @@
     }, { threshold: 0.3 });
     document.querySelectorAll('.hero-stats').forEach(el => numObserver.observe(el));
 
+    // --- IMPORTANT: SET THIS TO YOUR RENDER URL LATER ---
+    // Leave it empty "" while testing on localhost!
+    const BACKEND_URL = "https://vaaniai-3hgv.onrender.com"; 
+
     // CHATBOT LOGIC
     function toggleChat() {
       const chatWin = document.getElementById('chat-window');
@@ -1701,7 +1705,8 @@
 
       const lang = document.getElementById('lang-selector').value;
       try {
-        const res = await fetch('/chat', {
+        const url = BACKEND_URL ? `${BACKEND_URL}/chat` : '/chat';
+        const res = await fetch(url, {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({message: msg, language: lang})
@@ -1759,7 +1764,8 @@
       const targetLanguage = langMap[langCode];
       
       try {
-        const response = await fetch('/api/translate', {
+        const url = BACKEND_URL ? `${BACKEND_URL}/api/translate` : '/api/translate';
+        const response = await fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
